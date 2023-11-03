@@ -122,7 +122,7 @@ class Turing:
                 pointer = 0
                 stringEach.insert(0, None)
             elif pointer >= len(stringEach):
-                pointer = len(stringEach) - 1
+                pointer = len(stringEach)
                 stringEach.append(None)
 
             searchTuple = (currentTransition.finalState,
@@ -145,6 +145,7 @@ class Turing:
                     '_' if item is None else item for item in stringEach]
                 print(''.join(stringListCopy))
                 return
+
             if self.final == currentTransition.finalState:
                 isFinal = True
 
