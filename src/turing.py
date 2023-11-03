@@ -39,14 +39,6 @@ class Turing:
             params = item['params']
             output = item['output']
 
-            tape_displacement = output['tape_displacement']
-            if tape_displacement == 'R':
-                tape_displacement = 1
-            elif tape_displacement == 'L':
-                tape_displacement = -1
-            else:
-                tape_displacement = 0
-
             self.deltaTuples.append(Transition(
                 params['initial_state'],
                 params['mem_cache_value'],
@@ -54,7 +46,7 @@ class Turing:
                 output['final_state'],
                 output['mem_cache_value'],
                 output['tape_output'],
-                tape_displacement
+                output['tape_displacement']
             ))
 
     def __findTransition(self, compareTuple: tuple[str]) -> Transition:
