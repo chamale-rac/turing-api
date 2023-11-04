@@ -1,4 +1,4 @@
-from src.utils.tools import readYaml
+from src.utils.tools import readYaml, strTable
 from src.turing import Turing
 
 path = './assets/LAB9E2.yaml'
@@ -8,4 +8,12 @@ path = './assets/LAB10E1.yaml'
 crudeConfig = readYaml(path)
 turing = Turing(crudeConfig)
 
-turing.goSimulation()
+results = turing.goSimulation()
+
+for accept, head, body, string, message in results:
+    print(f'Input string: {string}')
+    print(f'Accepted: {accept}')
+    print(f'Head: {head}')
+    print(strTable(['Transition', 'Tape'], body))
+    print(f'Message: {message}')
+    print('='*100)

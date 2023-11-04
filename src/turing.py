@@ -65,20 +65,6 @@ class Turing:
                 return transition
         return None
 
-    def __currentStep(self, transition: str, injectedString: str) -> str:
-        '''
-        Get the current step of the simulation
-
-        Args:
-            stringList (list[str]): The list of characters in the string
-            transition (Transition): The transition to use
-            index (int): The index of the current character
-
-        Returns:
-            tuple[str]: The parameters of the current step
-        '''
-        return f'{transition}\t\t\t|- {injectedString}'
-
     def __insertSymbol(self, stringList: list[str], index: int, transition: Transition) -> None:
         '''
         Insert a symbol into the string list
@@ -100,15 +86,20 @@ class Turing:
         Args:
             string (str): The string to simulate
         '''
+        head = ['Transitions', 'String']
+        body = []
+
         pointer = 0
         stringEach = list(string)
         searchTuple = (self.start, string[pointer])
         currentTransition: Transition = self.__findTransition(searchTuple)
 
         if currentTransition is None:
-            print(f'No transition found for {searchTuple}')
-            return
-        print(self.__insertSymbol(stringEach, pointer, currentTransition))
+            message = f'No transition found for {searchTuple}'
+            return False, head, body, string, message
+
+        body.append(['', self.__insertSymbol(
+            stringEach, pointer, currentTransition)])
 
         toPrintTransition = str(currentTransition)
 
@@ -131,20 +122,21 @@ class Turing:
             if not isFinal:
                 currentTransition = self.__findTransition(searchTuple)
                 if currentTransition is None:
-                    print(f'No transition found for {searchTuple}')
-                    return
+                    message = f'No transition found for {searchTuple}'
+                    return False, head, body, string, message
 
-            print(self.__currentStep(toPrintTransition,
-                                     self.__insertSymbol(stringEach, pointer, currentTransition)))
+            body.append([toPrintTransition, self.__insertSymbol(
+                stringEach, pointer, currentTransition)])
+
             toPrintTransition = str(currentTransition)
 
             # Here will go handling final state
             if isFinal:
-                print('Final state reached')
+                message = 'Final state reached'
                 stringListCopy = [
                     '_' if item is None else item for item in stringEach]
-                print(''.join(stringListCopy))
-                return
+                body.append(['', ''.join(stringListCopy)])
+                return True, head, body, string, message
 
             if self.final == currentTransition.finalState:
                 isFinal = True
@@ -156,10 +148,12 @@ class Turing:
         Args:
             num (int, optional): The number of the string to simulate. Defaults to None.
         '''
+        results = []
         if num is not None:
-            self.__simulate(self.simulationStrings[num])
-            return
-
-        for string in self.simulationStrings:
-            self.__simulate(string)
-            print('-'*100)
+            result: list = self.__simulate(self.simulationStrings[num])
+            results.append(result)
+        else:
+            for string in self.simulationStrings:
+                result: list = self.__simulate(string)
+                results.append(result)
+        return results
