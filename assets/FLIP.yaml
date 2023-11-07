@@ -1,0 +1,198 @@
+q_states:
+  q_list:
+    - q0
+    - q1
+    - q2
+    - q3
+    - q_halt
+  initial: q0
+  final: q_halt
+alphabet:
+  - a
+  - b
+tape_alphabet:
+  - b
+  - b
+  - X
+  -
+delta:
+# init
+  - params:
+        initial_state: q0
+        mem_cache_value:
+        tape_input: a
+    output:
+        final_state: q0
+        mem_cache_value: a
+        tape_output: X
+        tape_displacement: L
+  - params:
+      initial_state: q0
+      mem_cache_value:
+      tape_input: b
+    output:
+      final_state: q0
+      mem_cache_value: b
+      tape_output: X
+      tape_displacement: L
+
+# going back and just replacing when blank is found
+  # for a on mem
+  - params:
+      initial_state: q0
+      mem_cache_value: a
+      tape_input: a
+    output:
+      final_state: q0
+      mem_cache_value: a
+      tape_output: a
+      tape_displacement: L
+  - params:
+      initial_state: q0
+      mem_cache_value: a
+      tape_input: b
+    output:
+      final_state: q0
+      mem_cache_value: a
+      tape_output: b
+      tape_displacement: L
+  - params: # when blank change state
+      initial_state: q0
+      mem_cache_value: a
+      tape_input:
+    output:
+      final_state: q1
+      mem_cache_value:
+      tape_output: a
+      tape_displacement: R
+    # the same for b
+  - params:
+      initial_state: q0
+      mem_cache_value: b
+      tape_input: a
+    output:
+      final_state: q0
+      mem_cache_value: b
+      tape_output: a
+      tape_displacement: L
+  - params:
+      initial_state: q0
+      mem_cache_value: b
+      tape_input: b
+    output:
+      final_state: q0
+      mem_cache_value: b
+      tape_output: b
+      tape_displacement: L
+  - params: # when blank change state
+      initial_state: q0
+      mem_cache_value: b
+      tape_input:
+    output:
+      final_state: q1
+      mem_cache_value:
+      tape_output: b
+      tape_displacement: R
+# going forward and just changing state when X is found
+  - params: 
+      initial_state: q1
+      mem_cache_value:
+      tape_input: a
+    output:
+      final_state: q1
+      mem_cache_value:
+      tape_output: a
+      tape_displacement: R
+  - params: 
+      initial_state: q1
+      mem_cache_value:
+      tape_input: b
+    output:
+      final_state: q1
+      mem_cache_value:
+      tape_output: b
+      tape_displacement: R
+  - params:
+      initial_state: q1
+      mem_cache_value:
+      tape_input: X
+    output:
+      final_state: q0
+      mem_cache_value:
+      tape_output: X
+      tape_displacement: R
+# going throughout X until found something else
+# using q0  but handling the special case of X and blank
+  - params:
+      initial_state: q0
+      mem_cache_value: a
+      tape_input: X
+    output:
+      final_state: q0
+      mem_cache_value: a
+      tape_output: X
+      tape_displacement: L
+  - params:
+      initial_state: q0
+      mem_cache_value: b
+      tape_input: X
+    output:
+      final_state: q0
+      mem_cache_value: b
+      tape_output: X
+      tape_displacement: L
+  - params:
+      initial_state: q0
+      mem_cache_value:
+      tape_input: X
+    output:
+      final_state: q0
+      mem_cache_value:
+      tape_output: X
+      tape_displacement: R
+
+# handling final case when q0 and blank
+  - params: 
+      initial_state: q0
+      mem_cache_value:
+      tape_input:
+    output:
+      final_state: q2
+      mem_cache_value:
+      tape_output:
+      tape_displacement: L
+# removing any X
+  - params:
+      initial_state: q2
+      mem_cache_value:
+      tape_input: X
+    output:
+      final_state: q2
+      mem_cache_value:
+      tape_output:
+      tape_displacement: L
+  # when a or b found halt
+  - params:
+      initial_state: q2
+      mem_cache_value:
+      tape_input: a
+    output:
+      final_state: q_halt
+      mem_cache_value:
+      tape_output: a
+      tape_displacement: R
+  - params:
+      initial_state: q2
+      mem_cache_value:
+      tape_input: b
+    output:
+      final_state: q_halt
+      mem_cache_value:
+      tape_output: b
+      tape_displacement: R
+
+simulation_strings:
+  - 'aaabb'
+  - 'ababab'
+  - 'babbabbb'
+  - 'aabaaab'

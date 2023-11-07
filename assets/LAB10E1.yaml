@@ -220,4 +220,3 @@ delta:
 simulation_strings:
   - 'aab#aab'
   - 'ab#ba'
-  - 'aabbabaaabbbaabbabaaabbb#aabbabaaabbbaabbabaaabbb'

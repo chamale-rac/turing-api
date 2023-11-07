@@ -96,7 +96,7 @@ class Turing:
 
         if currentTransition is None:
             message = f'No transition found for {searchTuple}'
-            return False, head, body, string, message
+            return False, head, body, string, message, 'no halt'
 
         body.append(['', self.__insertSymbol(
             stringEach, pointer, currentTransition)])
@@ -123,7 +123,7 @@ class Turing:
                 currentTransition = self.__findTransition(searchTuple)
                 if currentTransition is None:
                     message = f'No transition found for {searchTuple}'
-                    return False, head, body, string, message
+                    return False, head, body, string, message, 'no halt'
 
             body.append([toPrintTransition, self.__insertSymbol(
                 stringEach, pointer, currentTransition)])
@@ -135,8 +135,9 @@ class Turing:
                 message = 'Final state reached'
                 stringListCopy = [
                     '_' if item is None else item for item in stringEach]
-                body.append(['', ''.join(stringListCopy)])
-                return True, head, body, string, message
+                joinStringListCopy = ''.join(stringListCopy)
+                body.append(['', joinStringListCopy])
+                return True, head, body, string, message, joinStringListCopy
 
             if self.final == currentTransition.finalState:
                 isFinal = True
