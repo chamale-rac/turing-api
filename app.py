@@ -17,9 +17,7 @@ for accept, head, body, string, message, solution in results:
     print(f'Input string: {string}')
     print(f'Accepted: {accept}')
     print(f'Head: {head}')
-    # print(strTable(['Transition', 'Tape'], body))
+    print(strTable(['Transition', 'Tape'], body))
     print(f'Solution: {solution}')
     print(f'Message: {message}')
     print('='*100)
-
-print(response)
