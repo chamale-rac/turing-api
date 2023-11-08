@@ -6,6 +6,8 @@ path = './assets/LAB9E3.yaml'
 path = './assets/LAB10E1.yaml'
 path = './assets/FLIP.yaml'
 
+path = input('Enter path to YAML file (examples on ./assets directory): ')
+
 crudeConfig = readYaml(path)
 turing = Turing(crudeConfig)
 
