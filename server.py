@@ -10,7 +10,7 @@ CORS(app)
 @app.route('/turing', methods=['POST'])
 def work_simulation():
     data = request.json
-    yamlFileStringBase64 = data['file']
+    yamlFileStringBase64 = data['file']  # type: ignore
     crudeConfig = readBase64Yaml(yamlFileStringBase64)
     turing = Turing(crudeConfig)
     results = turing.goSimulation()
@@ -19,7 +19,7 @@ def work_simulation():
 
     keys = ['accept', 'head', 'body',
             'stringSimulation', 'message', 'solution']
-    response = [dict(zip(keys, result)) for result in results]
+    response = [dict(zip(keys, result)) for result in results]  # type: ignore
 
     response = {
         'response': response,

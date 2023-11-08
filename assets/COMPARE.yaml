@@ -219,4 +219,6 @@ delta:
       tape_displacement: R
 simulation_strings:
   - 'aab#aab'
-  - 'ab#ba'
+  - 'bbab#bbab'
+  - 'bba#abb'
+  - 'b#aaaaa'
