@@ -1,4 +1,4 @@
-# 🚀 turing-api AKA Proyecto 1
+# 🚀 turing-api AKA Proyecto 3
 
 Implementation of a turing machine simulator (one tape and one cache supported).
 
