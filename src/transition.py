@@ -33,4 +33,4 @@ class Transition:
 
     def __str__(self) -> str:
         tapeDisplacement = displacementReplacements[self.tapeDisplacement]
-        return f'sigma([{self.initialState}, {self.initialMemCacheValue}], {self.tapeInput}) = ([{self.finalState}, {self.finalMemCacheValue}], {self.tapeOutput}, {tapeDisplacement})'
+        return f'[{self.initialState}, {self.initialMemCacheValue}], {self.tapeInput} = [{self.finalState}, {self.finalMemCacheValue}], {self.tapeOutput}, {tapeDisplacement}'

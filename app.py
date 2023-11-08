@@ -19,3 +19,5 @@ for accept, head, body, string, message, solution in results:
     print(f'Solution: {solution}')
     print(f'Message: {message}')
     print('='*100)
+
+print(response)

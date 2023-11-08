@@ -1,5 +1,6 @@
 import yaml
 import tabulate
+import base64
 
 
 def readYaml(path: str) -> any:
@@ -13,12 +14,15 @@ def readYaml(path: str) -> any:
             return None
 
 
-def readBase64Yaml(base64: str) -> any:
+def readBase64Yaml(base64_string: str) -> any:
     '''
     Read a base64 yaml file and return its content
     '''
+    # Decode the base64 string
+    decoded_string = base64.b64decode(base64_string).decode()
+
     try:
-        return yaml.safe_load(base64)
+        return yaml.safe_load(decoded_string)
     except yaml.YAMLError:
         return None
 

@@ -86,7 +86,7 @@ class Turing:
         Args:
             string (str): The string to simulate
         '''
-        head = ['Transitions', 'String']
+        head = ['Transition', 'String']
         body = []
 
         pointer = 0
