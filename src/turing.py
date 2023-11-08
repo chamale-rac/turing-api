@@ -96,7 +96,7 @@ class Turing:
 
         if currentTransition is None:
             message = f'No transition found for {searchTuple}'
-            return False, head, body, string, message, 'no halt'
+            return False, head, body, string, message, ''
 
         body.append(['', self.__insertSymbol(
             stringEach, pointer, currentTransition)])
@@ -123,7 +123,11 @@ class Turing:
                 currentTransition = self.__findTransition(searchTuple)
                 if currentTransition is None:
                     message = f'No transition found for {searchTuple}'
-                    return False, head, body, string, message, 'no halt'
+                    newTransition = Transition(
+                        searchTuple[0], searchTuple[1], searchTuple[2], '', '', '', 'S')
+                    body.append([toPrintTransition, self.__insertSymbol(
+                        stringEach, pointer, newTransition)])
+                    return False, head, body, string, message, ''
 
             body.append([toPrintTransition, self.__insertSymbol(
                 stringEach, pointer, currentTransition)])
